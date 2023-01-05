@@ -26,19 +26,18 @@ namespace GachaMachine
 		private void btncoin_Click(object sender, EventArgs e)
 		{
 			bool isInt = int.TryParse(txtmoney.Text, out int money);
-			sum+=money;
 			
-			if (!isInt)
+			if (!isInt || money<=0)
 			{
 				MessageBox.Show("請輸入正確金額!!");
 				txtmoney.Clear();
 				return;
 			}
-			
+			sum += money;
 
 			txtpanel.Clear();
 			
-			if (sum > 50)
+			if (sum >= 50)
 			{
 				btnreturnMoney.Enabled = true;
 				btnship.Enabled = true;
@@ -54,6 +53,13 @@ namespace GachaMachine
 		private void btnreturnMoney_Click(object sender, EventArgs e)
 		{
 			bool isInt = int.TryParse(txtmoney.Text, out int money);
+			if (!isInt || money <= 0)
+			{
+				MessageBox.Show("請輸入正確金額!!");
+				txtmoney.Clear();
+				return;
+			}
+
 			if (sum >= money)
 			{
 				sum -= money;
@@ -65,21 +71,19 @@ namespace GachaMachine
 				return; 
 			}
 				
-
-			if (!isInt)
-			{
-				MessageBox.Show("請輸入正確金額!!");
-				txtmoney.Clear();
-				return;
-			}
-			
 			txtpanel.Clear();
 
-			if (sum > 50)
+			if (sum >= 50)
 			{				
 				txtpanel.Text += $"State:投入足夠金額，等待客人指令就出貨\r\nmoney:{sum}";
 			}
-			else if(sum >= 0)
+			else if(sum == 0)
+			{
+				btnship.Enabled = false;
+				txtpanel.Text += "State:StandbyState 機器沒在工作，等待下一個客人操作\r\nMoney: 0";
+
+			}
+			else
 			{
 				btnship.Enabled = false;
 				txtpanel.Text += $"State:有投幣，但金額還不足\r\nmoney:{sum}";
@@ -91,15 +95,22 @@ namespace GachaMachine
 		{
 			sum -= ship;
 			txtpanel.Clear();
-			if (sum > 50)
+			if (sum >= 50)
 			{
 				txtpanel.Text += $"State:投入足夠金額，等待客人指令就出貨\r\nmoney:{sum}";
 			}
-			else if (sum >= 0)
+			else if (sum == 0)
+			{
+				btnship.Enabled = false;
+				txtpanel.Text += "State:StandbyState 機器沒在工作，等待下一個客人操作\r\nMoney: 0";
+
+			}
+			else
 			{
 				btnship.Enabled = false;
 				txtpanel.Text += $"State:有投幣，但金額還不足\r\nmoney:{sum}";
 			}
+			MessageBox.Show("已出貨");
 		}
 	}
 }
