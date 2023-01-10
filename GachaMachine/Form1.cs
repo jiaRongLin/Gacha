@@ -18,7 +18,7 @@ namespace GachaMachine
 			InitializeComponent();
 		}
 		int sum; //總金額
-		int ship = 50; //商品金額
+		const int ship = 50; //商品金額
 		GachaResult gacha = new GachaResult();
 		/// <summary>
 		/// 扭蛋機程式
