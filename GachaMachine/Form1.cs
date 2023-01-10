@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GachaState;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,7 @@ namespace GachaMachine
 		}
 		int sum; //總金額
 		int ship = 50; //商品金額
+		GachaResult gacha = new GachaResult();
 		/// <summary>
 		/// 扭蛋機程式
 		/// </summary>
@@ -35,50 +37,32 @@ namespace GachaMachine
 			}
 			sum += money;
 
-			result();
+			txtpanel.Text = gacha.GachaCal(sum,ship);
+			SetEnv();
 		}
 
 		private void btnreturnMoney_Click(object sender, EventArgs e)
 		{
 			sum = 0;
 
-			result();
+			txtpanel.Text = gacha.GachaCal(sum, ship);
+			SetEnv();
 			MessageBox.Show("已完成退幣作業");
 		}
 
 		private void btnship_Click(object sender, EventArgs e)
 		{
-			sum -= ship;			
+			sum -= ship;
 
-			result();
+			txtpanel.Text = gacha.GachaCal(sum, ship);
+			SetEnv();
 			MessageBox.Show("已出貨");
 		}
-
-		public string result()
+		private void SetEnv()
 		{
-			txtpanel.Clear();
-			if (sum >= ship)
-			{
-				btnship.Enabled = true;
-				btnreturnMoney.Enabled = true;
-
-				txtpanel.Text += $"State:投入足夠金額，等待客人指令就出貨\r\nMoney:{sum}";
-			}
-			else if (sum == 0)
-			{
-				btnship.Enabled = false;
-				btnreturnMoney.Enabled = false;
-
-				txtpanel.Text += "State:StandbyState 機器沒在工作，等待下一個客人操作\r\nMoney: 0";
-			}
-			else
-			{
-				btnship.Enabled = false;
-				btnreturnMoney.Enabled = true;
-
-				txtpanel.Text += $"State:有投幣，但金額還不足\r\nMoney:{sum}";
-			}
-			return txtpanel.Text;
+			btnreturnMoney.Enabled = (sum > 0);
+			btnship.Enabled = (sum>ship);
 		}
+
 	}
 }
