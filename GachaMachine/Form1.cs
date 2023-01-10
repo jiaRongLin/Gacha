@@ -57,7 +57,7 @@ namespace GachaMachine
 		public string result()
 		{
 			txtpanel.Clear();
-			if (sum >= 50)
+			if (sum >= ship)
 			{
 				btnship.Enabled = true;
 				btnreturnMoney.Enabled = true;
