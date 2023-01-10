@@ -19,6 +19,10 @@ namespace GachaState
 			{
 				result = "State:StandbyState 機器沒在工作，等待下一個客人操作\r\nMoney: 0";
 			}
+			else if(sum < 0)
+			{
+				throw new Exception("總金額不能小於0");
+			}
 			else
 			{
 				result = $"State:有投幣，但金額還不足\r\nMoney:{sum}";

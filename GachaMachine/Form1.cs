@@ -38,7 +38,7 @@ namespace GachaMachine
 			sum += money;
 
 			txtpanel.Text = gacha.GachaCal(sum,ship);
-			SetEnv();
+			BtnEnble();
 		}
 
 		private void btnreturnMoney_Click(object sender, EventArgs e)
@@ -46,7 +46,7 @@ namespace GachaMachine
 			sum = 0;
 
 			txtpanel.Text = gacha.GachaCal(sum, ship);
-			SetEnv();
+			BtnEnble();
 			MessageBox.Show("已完成退幣作業");
 		}
 
@@ -55,13 +55,16 @@ namespace GachaMachine
 			sum -= ship;
 
 			txtpanel.Text = gacha.GachaCal(sum, ship);
-			SetEnv();
+			BtnEnble();
 			MessageBox.Show("已出貨");
 		}
-		private void SetEnv()
+		private void BtnEnble()
 		{
 			btnreturnMoney.Enabled = (sum > 0);
 			btnship.Enabled = (sum>ship);
+
+			//if (sum > 0) btnreturnMoney.Enabled = true;
+			//if (sum > ship) btnship.Enabled = true;
 		}
 
 	}
